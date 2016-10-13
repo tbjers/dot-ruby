@@ -2,23 +2,19 @@
 #
 # tbjers/dot-ruby ellipsis package
 
-# The following hooks can be defined to customize behavior of your package:
-# pkg.install() {
-#     fs.link_files $PKG_PATH
-# }
-
-# pkg.push() {
-#     git.push
-# }
-
-# pkg.pull() {
-#     git.pull
-# }
-
-# pkg.installed() {
-#     git.status
-# }
-#
-# pkg.status() {
-#     git.diffstat
-# }
+pkg.install() {
+  case $(os.platform) in
+    osx)
+      ;;
+    linux)
+      if [[ -d $HOME/.rbenv ]]; then
+        git.clone https://github.com/rbenv/rbenv.git $HOME/.rbenv
+        git.clone https://github.com/rbenv/ruby-build.git $HOME/.rbenv/plugins/ruby-build
+      else
+        cd $HOME/.rbenv
+        git pull
+        cd $PKG_PATH
+      fi
+      ;;
+  esac
+}
