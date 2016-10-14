@@ -5,7 +5,14 @@
 pkg.install() {
   case $(os.platform) in
     osx)
-      brew install rbenv ruby-build
+      if utils.cmd_exists brew; then
+        if utils.cmd_exists rbenv; then
+          brew unlink ruby-build
+        fi
+        brew install rbenv ruby-build
+      else
+        echo "Cannot install rbenv because Homebrew is not installed."
+      fi
       ;;
     linux)
       if [[ ! -d $HOME/.rbenv ]]; then
