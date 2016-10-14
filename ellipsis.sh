@@ -5,6 +5,7 @@
 pkg.install() {
   case $(os.platform) in
     osx)
+      brew install rbenv ruby-build
       ;;
     linux)
       if [[ ! -d $HOME/.rbenv ]]; then
