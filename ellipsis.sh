@@ -23,6 +23,9 @@ pkg.install() {
         git pull
         cd $PKG_PATH
       fi
+      if utils.cmd_exists apt-get; then
+        sudo apt-get install -y libssl-dev libreadline-dev zlib1g-dev
+      fi
       ;;
   esac
 }
